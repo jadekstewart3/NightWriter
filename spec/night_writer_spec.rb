@@ -20,3 +20,4 @@ RSpec.describe NightWriter do
      expect(night_writer.write_file).to eq('./braille.txt')
    end
  end
+end
