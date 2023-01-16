@@ -2,12 +2,7 @@ require_relative 'spec_helper'
 
 RSpec.describe NightWriter do
  
- let(:night_writer) { NightWriter.new }
-
- before do
-   night_writer.read_file = './message.txt'
-   night_writer.write_file = './braille.txt'
- end
+ let(:night_writer) { NightWriter.new('./message.txt', './braille.txt') }
  
  describe '#initalize' do
    it 'exists' do
@@ -27,7 +22,7 @@ RSpec.describe NightWriter do
     end
 
     it 'can convert a multiple english letters to braille' do
-      expect(night_writer.braille_converter(["ab ,cde"])).to eq("0.0...00000.\n..0......0.0\n............")
+      expect(night_writer.braille_converter(["ab cde"])).to eq("0.0...00000.\n..0......0.0\n............")
     end
   end
 
