@@ -15,7 +15,7 @@ RSpec.describe NightReader do
   end
 
   it 'has attributes' do 
-    night_reader.read_and_write_text
+    night_reader.read_and_write_braille
 
     expect(night_reader.write_file).to eq('./original_message.txt')
     expect(night_reader.read_file).to eq('./braille.txt')
