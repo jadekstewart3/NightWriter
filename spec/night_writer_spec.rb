@@ -5,7 +5,7 @@ RSpec.describe NightWriter do
  let(:night_writer) { NightWriter.new }
 
  before do
-   night_writer.read_file = './message_fixture.txt'
+   night_writer.read_file = './message.txt'
    night_writer.write_file = './braille.txt'
  end
  
@@ -16,7 +16,7 @@ RSpec.describe NightWriter do
  
    it 'has attributes' do
      night_writer.read_and_write_text
-      expect(night_writer.read_file).to eq('./message_fixture.txt')
+     expect(night_writer.read_file).to eq('./message.txt')
      expect(night_writer.write_file).to eq('./braille.txt')
    end
  end
@@ -27,13 +27,27 @@ RSpec.describe NightWriter do
     end
     
     it 'can convert a single english letter to braille' do
-      night_writer.read_file = './message_single_letter_fixture.txt'
-
-      expect(night_writer.braille_converter).to eq("0.\n..\n..")
+      expect(night_writer.braille_converter(["a"])).to eq("0.\n..\n..")
     end
 
     it 'can convert a multiple english letters to braille' do
-      expect(night_writer.braille_converter).to eq("0.0...00000.\n..0......0.0\n............")
+      expect(night_writer.braille_converter(["ab ,cde"])).to eq("0.0...00000.\n..0......0.0\n............")
+    end
+  end
+
+  describe '#get_substrings' do 
+    it 'returns an array of substrings' do
+      text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+      expect(night_writer.get_substrings(text)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"])
+    end
+  end
+
+  describe '#break_up_long_words' do 
+    it 'breaks english characters over 40 caharacters long' do
+      text_array = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+  
+      expect(night_writer.break_up_long_words(text_array)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"])
     end
   end
 end
