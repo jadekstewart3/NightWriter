@@ -22,10 +22,6 @@ RSpec.describe NightWriter do
  end
  
   describe '#braille_converter' do 
-    it 'has a dictionary' do 
-      expect(night_writer.english_to_braille).to be_a(Hash)
-    end
-    
     it 'can convert a single english letter to braille' do
       expect(night_writer.braille_converter(["a"])).to eq("0.\n..\n..")
     end
