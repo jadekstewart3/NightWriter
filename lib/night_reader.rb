@@ -2,10 +2,10 @@ require_relative 'braille_dictionary'
 
 class NightReader
   include BrailleDictionary
-  attr_reader :braille_to_english_hash
-  attr_accessor :read_file,
-                :write_file,
-                :braille_text
+  attr_reader :read_file,
+              :write_file,
+              :braille_text,
+              :braille_to_english_hash
 
   def initialize(input, output)
     @read_file = input
