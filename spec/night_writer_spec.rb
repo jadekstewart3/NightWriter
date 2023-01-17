@@ -28,9 +28,8 @@ RSpec.describe NightWriter do
 
   describe '#get_substrings' do 
     it 'returns an array of substrings' do
-      text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-
-      expect(night_writer.get_substrings(text)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"])
+      file_contents = File.open('message_41_char_fixture.txt', 'r').read
+      expect(night_writer.get_substrings(file_contents)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"])
     end
   end
 
@@ -39,6 +38,13 @@ RSpec.describe NightWriter do
       text_array = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
   
       expect(night_writer.break_up_long_words(text_array)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "a"])
+    end
+  end
+
+  describe '#read_and_write_text' do 
+    it 'returns translated english to braille text' do
+      night_writer.read_and_write_text
+      expect(File.open('braille.txt', 'r').read).to match(File.open('braille_fixture.txt', 'r').read)
     end
   end
 end
