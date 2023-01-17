@@ -27,5 +27,7 @@ module BrailleDictionary
          "y" => ["00", ".0", "00"],
          "z" => ["0.", ".0", "00"],
          " " => ["..", "..", ".."]
-         }
+        }
+
+  INVERTED_DICTIONARY = DICTIONARY.invert
 end
