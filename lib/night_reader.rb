@@ -14,16 +14,27 @@ class NightReader
 
   def read_and_write_braille
     braille_text = @braille_text.read
+    # require 'pry'; binding.pry
+    strings = braille_text.split("\n")
+    translate_braille_line(strings)
 
     puts "Created #{@write_file} containing #{braille_text.split('').count} characters"
     File.write(@write_file, braille_text)
   end
 
-  def translate_braille_char(braille)
-    sliced_braille = braille.split("\n")
-    INVERTED_DICTIONARY[sliced_braille]
+  def translate_braille_char(strings)
+    INVERTED_DICTIONARY[strings]
   end
 
+  def translate_braille_line(strings)
+    string_arrays = strings.map do |str|
+      str.chars.each_slice(2).map(&:join)
+    end
+
+    english_chars = string_arrays.transpose.map do |array|
+      translate_braille_char(array)
+    end.join
+  end
 end
 # input = ARGV[0]
 # output = ARGV[1]
