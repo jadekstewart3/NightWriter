@@ -11,6 +11,7 @@ RSpec.describe NightReader do
 
     it 'has attributes' do 
       night_reader.read_and_write_braille
+
       expect(night_reader.read_file).to eq('./braille.txt')
       expect(night_reader.write_file).to eq('./original_message.txt')
     end
@@ -34,7 +35,16 @@ RSpec.describe NightReader do
   describe '#break_up_braille_lines' do 
     it 'returns array containing arrays of strings' do
       file_contents = File.open('braille_fixture.txt', 'r').read
-      expect(night_reader.break_up_braille_lines(file_contents)).to eq([["0.0.00", "..0...", "......"], ["000.00", ".0.00.", "......"]])
+
+      expect(night_reader.break_up_braille_lines(file_contents)).to eq([["0.0.0.0.0.00..000.0.0.", ".00..00..0.0....00..00", "..0...00..0.........0."]])
+    end
+  end
+
+   describe '#read_and_write_braille' do 
+    it 'returns translated braille to english text' do
+      night_reader.read_and_write_braille
+
+      expect(File.open('original_message.txt', 'r').read).to match(File.open('original_message_fixture.txt', 'r').read)
     end
   end
 end
