@@ -2,10 +2,11 @@ require_relative 'braille_dictionary'
 
 class NightWriter
   include BrailleDictionary
-  attr_reader :enlglish_to_braille_hash
-  attr_accessor :read_file,
-                :write_file,
-                :text
+  attr_reader :read_file,
+              :write_file,
+              :text,
+              :enlglish_to_braille_hash
+              
  def initialize(input, output)
    @read_file = input
    @write_file = output
