@@ -6,7 +6,7 @@ class NightWriter
               :write_file,
               :text,
               :enlglish_to_braille_hash
-              
+
  def initialize(input, output)
    @read_file = input
    @write_file = output
@@ -20,7 +20,7 @@ class NightWriter
     substrings = get_substrings(text)
     converted_braille = braille_converter(substrings)
 
-    puts "Created #{@write_file} containing #{text.split("").count} characters"
+    puts "Created #{@write_file} containing #{text.chars.count} characters"
     File.write(@write_file, converted_braille)
   end
 
