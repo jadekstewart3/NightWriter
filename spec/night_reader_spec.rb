@@ -30,4 +30,11 @@ RSpec.describe NightReader do
       expect(night_reader.translate_braille_line(braille_text)).to eq("ab cd")
     end
   end
+
+  describe '#break_up_braille_lines' do 
+    it 'returns array containing arrays of strings' do
+      file_contents = File.open('braille_fixture.txt', 'r').read
+      expect(night_reader.break_up_braille_lines(file_contents)).to eq([["0.0.00", "..0...", "......"], ["000.00", ".0.00.", "......"]])
+    end
+  end
 end
