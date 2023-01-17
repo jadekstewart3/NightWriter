@@ -2,10 +2,11 @@ require_relative 'braille_dictionary'
 
 class NightWriter
   include BrailleDictionary
-  attr_reader :enlglish_to_braille_hash
-  attr_accessor :read_file,
-                :write_file,
-                :text
+  attr_reader :read_file,
+              :write_file,
+              :text,
+              :enlglish_to_braille_hash
+
  def initialize(input, output)
    @read_file = input
    @write_file = output
@@ -19,7 +20,7 @@ class NightWriter
     substrings = get_substrings(text)
     converted_braille = braille_converter(substrings)
 
-    puts "Created #{@write_file} containing #{text.split("").count} characters"
+    puts "Created #{@write_file} containing #{text.chars.count} characters"
     File.write(@write_file, converted_braille)
   end
 
