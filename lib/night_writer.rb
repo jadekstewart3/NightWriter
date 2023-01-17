@@ -1,42 +1,16 @@
+require_relative 'braille_dictionary'
+
 class NightWriter
-  attr_reader  :english_to_braille
+  include BrailleDictionary
+  attr_reader :enlglish_to_braille_hash
   attr_accessor :read_file,
                 :write_file,
                 :text
-
- def initialize
-   @read_file = ARGV[0]
-   @write_file = ARGV[1]
+ def initialize(input, output)
+   @read_file = input
+   @write_file = output
    @text = File.open(@read_file, "r")
-   @english_to_braille = {
-         "a" => ["0.", "..", ".."],
-         "b" => ["0.", "0.", ".."],
-         "c" => ["00", "..", ".."],
-         "d" => ["00", ".0", ".."],
-         "e" => ["0.", ".0", ".."],
-         "f" => ["00", "0.", ".."],
-         "g" => ["00", "00", ".."],
-         "h" => ["0.", "00", ".."],
-         "i" => [".0", "0.", ".."],
-         "j" => [".0", "00", ".."],
-         "k" => ["0.", "..", "0."],
-         "l" => ["0.", "0.", "0."],
-         "m" => ["00", "..", "0."],
-         "n" => ["00", ".0", "0."],
-         "o" => ["0.", ".0", "0."],
-         "p" => ["00", "0.", "0."],
-         "q" => ["00", "00", "0."],
-         "r" => ["0.", "00", "0."],
-         "s" => [".0", "0.", "0."],
-         "t" => [".0", "00", "0."],
-         "u" => ["0.", "..", "00"],
-         "v" => ["0.", "0.", "00"],
-         "w" => [".0", "00", ".0"],
-         "x" => ["00", "..", "00"],
-         "y" => ["00", ".0", "00"],
-         "z" => ["0.", ".0", "00"],
-         " " => ["..", "..", ".."]
-         }
+   @enlglish_to_braille_hash = DICTIONARY
  end
  
   def read_and_write_text
@@ -52,12 +26,11 @@ class NightWriter
   def braille_converter(substrings) 
     braille_chars = substrings.map do |str|
       str.chars.map do |char|
-        @english_to_braille[char]
+        @enlglish_to_braille_hash[char]
       end
     end
     braille_chars.map do |array|
-      compact_array = array.compact
-      compact_array.transpose.map(&:join)
+      array.transpose.map(&:join)
     end.join("\n")
   end
 
@@ -85,10 +58,5 @@ class NightWriter
       end
     end.flatten
   end
-
 end
-# night_writer = NightWriter.new
-# night_writer.read_file = "./message.txt" if night_writer.read_file.nil?
-# night_writer.write_file = "./braille.txt" if night_writer.write_file.nil?
-# night_writer.read_and_write_text
-#use this^^ to run from command line (runner file style)
+
