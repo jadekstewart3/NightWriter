@@ -16,27 +16,10 @@ RSpec.describe NightReader do
     end
   end
 
-  describe '#english_converter' do
-      it 'returns an array of substrings' do
-        braille_text = "0. .. .."
-    
-        expect(night_reader.get_substrings(braille_text)).to eq(["0.", "..", ".."])
-      end
-
-      xit 'breaks up braille characters over 40 caharacters long' do
-        braille_array = ["0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.
-................................................................................
-................................................................................
-0.
-..
-.."]
-  
-        expect(night_reader.break_up_long_words(braille_array)).to eq(["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"])
-      end
-
-
-      xit 'can convert a single english letter to braille' do
-        expect(night_reader.english_converter).to eq("a")
-      end
-   end
+  describe '#translate_braille_char' do
+    it 'returns a single english character' do
+      braille_text = "0.\n..\n.."
+      expect(night_reader.translate_braille_char(braille_text)).to eq("a")
+    end
+  end
 end
