@@ -14,9 +14,6 @@ class NightReader
 
   def read_and_write_braille
     braille_text = @braille_text.read
-    # require 'pry'; binding.pry
-    strings = braille_text.split("\n")
-    translate_braille_line(strings)
 
     puts "Created #{@write_file} containing #{braille_text.split('').count} characters"
     File.write(@write_file, braille_text)
@@ -35,6 +32,13 @@ class NightReader
       translate_braille_char(array)
     end.join
   end
+
+  def break_up_braille_lines(text)
+    strings = text.split("\n")
+    strings.each_slice(3).to_a
+  end
+
+
 end
 # input = ARGV[0]
 # output = ARGV[1]
