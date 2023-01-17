@@ -22,6 +22,7 @@ RSpec.describe NightReader do
   describe '#translate_braille_char' do
     it 'returns a single english character' do
       braille_text = ["0.","..", ".."]
+      
       expect(night_reader.translate_braille_char(braille_text)).to eq("a")
     end
   end
